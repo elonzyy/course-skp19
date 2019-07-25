@@ -1,0 +1,289 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>3D建模理论与实战 - 使用Ruby进行SketchUp(草图大师)插件开发</title>
+        
+        <meta name="robots" content="noindex" />
+        
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li><a href="ch1-0-course-info.html"><strong aria-hidden="true">1.</strong> 课程信息</a></li><li><ol class="section"><li><a href="ch1-1-sketchup-setup.html"><strong aria-hidden="true">1.1.</strong> 环境配置</a></li></ol></li><li><a href="ch2-0-ruby-fundamentals.html"><strong aria-hidden="true">2.</strong> Ruby基础</a></li><li><a href="ch3-0-geometry.html"><strong aria-hidden="true">3.</strong> 几何</a></li><li><ol class="section"><li><a href="ch3-1-length.html"><strong aria-hidden="true">3.1.</strong> 长度</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">3D建模理论与实战 - 使用Ruby进行SketchUp(草图大师)插件开发</h1>
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#第一章-课程信息" id="第一章-课程信息">第一章 课程信息</a></h1>
+<p>本课件链接: <a href="https://elonzyy.github.io/course-skp19" target="_blank">https://elonzyy.github.io/course-skp19</a></p>
+<p>Github链接: <a href="https://github.com/elonzyy/course-skp19" target="_blank">https://github.com/elonzyy/course-skp19</a></p>
+<h2><a class="header" href="#环境配置" id="环境配置">环境配置</a></h2>
+<h3><a class="header" href="#下载并安装-sketchup" id="下载并安装-sketchup">下载并安装 SketchUp</a></h3>
+<p>下载链接: <a href="https://www.sketchup.com/zh-CN/download/all" target="_blank">https://www.sketchup.com/zh-CN/download/all</a></p>
+<p>2017 Make 是免费版，但不可用于商业通途。</p>
+<p>2017-2019 都适用于本课程。</p>
+<h3><a class="header" href="#选择并安装一款代码编辑器" id="选择并安装一款代码编辑器">选择并安装一款代码编辑器</a></h3>
+<ul>
+<li><a href="https://code.visualstudio.com" target="_blank">Visual Studio Code</a></li>
+<li><a href="https://atom.io" target="_blank">Atom</a></li>
+<li><a href="https://www.sublimetext.com" target="_blank">Sublime</a></li>
+<li><a href="https://www.vim.org" target="_blank">VIM</a> 讲师用的编辑器</li>
+</ul>
+<h3><a class="header" href="#关于ruby解释器" id="关于ruby解释器">关于Ruby解释器</a></h3>
+<p>本课程只会用到SketchUp自带的Ruby解释器。并不需要额外下载并安装Ruby。</p>
+<p>如果同学有兴趣在非SketchUp的环境下运行ruby文件可以安装独立的Ruby解释器。 </p>
+<p>下载链接: <a href="https://www.ruby-lang.org/en/downloads" target="_blank">https://www.ruby-lang.org/en/downloads</a> </p>
+<p>也可以使用RVM安装Ruby解释器，链接：
+<a href="https://rvm.io" target="_blank">https://rvm.io</a></p>
+<h3><a class="header" href="#参考文档" id="参考文档">参考文档</a></h3>
+<p>Ruby文档： <a href="https://ruby-doc.org" target="_blank">https://ruby-doc.org</a></p>
+<p>SketchUp Ruby API文档：<a href="http://ruby.sketchup.com" target="_blank">http://ruby.sketchup.com</a></p>
+<h1><a class="header" href="#第二章-ruby基础" id="第二章-ruby基础">第二章 Ruby基础</a></h1>
+<h1><a class="header" href="#第三章-几何" id="第三章-几何">第三章 几何</a></h1>
+<h2><a class="header" href="#工具箱" id="工具箱">工具箱</a></h2>
+<p>代码链接：<a href="https://github.com/elonzyy/course-skp19/blob/master/plugin-src/op_course_helpers/visualization/pt_and_vec.rb" target="_blank">op_course_helpers/visualization/pt_and_vec.rb</a></p>
+<h3><a class="header" href="#可视化-geompoint3d" id="可视化-geompoint3d">可视化 Geom::Point3d</a></h3>
+<img src="./assets/ch3-visualize_pt.png" width="200"/>
+<pre><code class="language-ruby">CourseHelpers.visualize_pt(Geom::Point3d.new([1.m, 1.m, 0]))
+</code></pre>
+<h3><a class="header" href="#可视化-geomvector3d" id="可视化-geomvector3d">可视化 Geom::Vector3d</a></h3>
+<img src="./assets/ch3-visualize_vec.png" width="200"/>
+<pre><code class="language-ruby">CourseHelpers.visualize_vec(Geom::Vector3d.new([1.m, 1.m, 1.m]))
+</code></pre>
+<h2><a class="header" href="#长度-length" id="长度-length">长度 Length</a></h2>
+<p>API文档: <a href="http://ruby.sketchup.com/Length.html" target="_blank">http://ruby.sketchup.com/Length.html</a></p>
+<h3><a class="header" href="#从数值类型创建长度" id="从数值类型创建长度">从数值类型创建长度</a></h3>
+<pre><code class="language-ruby">100.to_l
+</code></pre>
+<pre><code class="language-ruby">100.mm
+</code></pre>
+<h3><a class="header" href="#从字符串类型创建长度" id="从字符串类型创建长度">从字符串类型创建长度</a></h3>
+<pre><code class="language-ruby">'100mm'.to_l
+</code></pre>
+<pre><code class="language-ruby">Sketchup.parse_length('100mm')
+</code></pre>
+<h3><a class="header" href="#sketchup-单位" id="sketchup-单位">SketchUp 单位</a></h3>
+<ul>
+<li>mm</li>
+<li>cm</li>
+<li>m</li>
+<li>km</li>
+<li>inch (&quot;)</li>
+<li>feet (')</li>
+<li>yard</li>
+<li>mile</li>
+</ul>
+<h3><a class="header" href="#长度单位换算" id="长度单位换算">长度单位换算</a></h3>
+<ul>
+<li>数值类型默认单位：inch</li>
+</ul>
+<pre><code class="language-ruby">100.mm.to_inch
+</code></pre>
+<h3><a class="header" href="#api" id="api">API</a></h3>
+<table><thead><tr><th>关键字</th><th>描述</th><th>文档链接</th></tr></thead><tbody>
+<tr><td>Length</td><td>长度类型</td><td><a href="http://ruby.sketchup.com/Length.html" target="_blank">doc</a></td></tr>
+<tr><td>to_l</td><td>转换至长度</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_l-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>parse_length</td><td>将字符串转换至长度</td><td><a href="http://ruby.sketchup.com/Sketchup.html#parse_length-class_method" target="_blank">doc</a></td></tr>
+<tr><td>mm</td><td>从数值创建单位为mm的长度</td><td><a href="http://ruby.sketchup.com/Numeric.html#mm-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>cm</td><td>从数值创建单位为cm的长度</td><td><a href="http://ruby.sketchup.com/Numeric.html#cm-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>m</td><td>从数值创建单位为m的长度</td><td><a href="http://ruby.sketchup.com/Numeric.html#m-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>km</td><td>从数值创建单位为km的长度</td><td><a href="http://ruby.sketchup.com/Numeric.html#km-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>inch</td><td>从数值创建单位为inch的长度</td><td><a href="http://ruby.sketchup.com/Numeric.html#inch-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>feet</td><td>从数值创建单位为feet的长度</td><td><a href="http://ruby.sketchup.com/Numeric.html#feet-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>yard</td><td>从数值创建单位为yard的长度</td><td><a href="http://ruby.sketchup.com/Numeric.html#yard-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>mile</td><td>从数值创建单位为mile的长度</td><td><a href="http://ruby.sketchup.com/Numeric.html#mile-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>to_mm</td><td>将长度转换为数值，数值意义所隐含的单位为mm</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_mm-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>to_cm</td><td>将长度转换为数值，数值意义所隐含的单位为cm</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_cm-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>to_m</td><td>将长度转换为数值，数值意义所隐含的单位为m</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_m-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>to_km</td><td>将长度转换为数值，数值意义所隐含的单位为km</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_km-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>to_inch</td><td>将长度转换为数值，数值意义所隐含的单位为inch</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_inch-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>to_feet</td><td>将长度转换为数值，数值意义所隐含的单位为feet</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_feet-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>to_yard</td><td>将长度转换为数值，数值意义所隐含的单位为yard</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_yard-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>to_mile</td><td>将长度转换为数值，数值意义所隐含的单位为mile</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_mile-instance_method" target="_blank">doc</a></td></tr>
+</tbody></table>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>

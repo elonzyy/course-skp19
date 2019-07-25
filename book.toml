@@ -1,0 +1,6 @@
+[book]
+authors = ["Elon"]
+language = "zh-cn"
+multilingual = false
+src = "book-src"
+title = "3D建模理论与实战 - 使用Ruby进行SketchUp(草图大师)插件开发"

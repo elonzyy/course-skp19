@@ -80,7 +80,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li><a href="ch1-0-course-info.html"><strong aria-hidden="true">1.</strong> 课程信息</a></li><li><ol class="section"><li><a href="ch1-1-sketchup-setup.html"><strong aria-hidden="true">1.1.</strong> 环境配置</a></li></ol></li><li><a href="ch2-0-ruby-fundamentals.html"><strong aria-hidden="true">2.</strong> Ruby基础</a></li><li><a href="ch3-0-geometry.html"><strong aria-hidden="true">3.</strong> 几何</a></li><li><ol class="section"><li><a href="ch3-1-length.html"><strong aria-hidden="true">3.1.</strong> 长度</a></li></ol></li></ol>
+                <ol class="chapter"><li><a href="ch1-0-course-info.html"><strong aria-hidden="true">1.</strong> 课程信息(更新中)</a></li><li><ol class="section"><li><a href="ch1-1-sketchup-setup.html"><strong aria-hidden="true">1.1.</strong> 环境配置</a></li></ol></li><li><a href="ch2-0-ruby-fundamentals.html"><strong aria-hidden="true">2.</strong> Ruby基础(更新中)</a></li><li><a href="ch3-0-geometry.html"><strong aria-hidden="true">3.</strong> 几何(更新中)</a></li><li><ol class="section"><li><a href="ch3-1-length.html"><strong aria-hidden="true">3.1.</strong> 长度</a></li><li><a href="ch3-2-cartesian-coordinates-point3d.html"><strong aria-hidden="true">3.2.</strong> 笛卡尔坐标系、点</a></li><li><a href="ex3-geometry.html"><strong aria-hidden="true">3.3.</strong> 练习题(更新中)</a></li></ol></li><li><a href="copyright.html"><strong aria-hidden="true">4.</strong> 版权信息(更新中)</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -234,6 +234,93 @@
 <tr><td>to_yard</td><td>将长度转换为数值，数值意义所隐含的单位为yard</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_yard-instance_method" target="_blank">doc</a></td></tr>
 <tr><td>to_mile</td><td>将长度转换为数值，数值意义所隐含的单位为mile</td><td><a href="http://ruby.sketchup.com/Numeric.html#to_mile-instance_method" target="_blank">doc</a></td></tr>
 </tbody></table>
+<h2><a class="header" href="#笛卡尔坐标系点" id="笛卡尔坐标系点">笛卡尔坐标系、点</a></h2>
+<h3><a class="header" href="#笛卡尔坐标系" id="笛卡尔坐标系">笛卡尔坐标系</a></h3>
+<ul>
+<li>红(X)、绿(Y)、蓝(Z)</li>
+<li>互相垂直</li>
+<li>交于原点</li>
+</ul>
+<h4><a class="header" href="#右手定则" id="右手定则">右手定则</a></h4>
+<img src="./assets/ch3-200px-Right_hand_rule_cross_product.svg.png" width="200" />
+<h3><a class="header" href="#创建point3d" id="创建point3d">创建Point3d</a></h3>
+<pre><code class="language-ruby">[2.m, 1.m, 0]
+</code></pre>
+<pre><code class="language-ruby">Geom::Point3d.new(2.m, 1.m, 0)
+</code></pre>
+<h3><a class="header" href="#原点常量" id="原点常量">原点常量</a></h3>
+<pre><code class="language-ruby">ORIGIN
+</code></pre>
+<h3><a class="header" href="#判断位置相同" id="判断位置相同">判断位置相同</a></h3>
+<pre><code class="language-ruby">Geom::Point3d.new(2.m, 1.m, 0) == [2.m, 1.m, 0]
+</code></pre>
+<h3><a class="header" href="#ruby语言运算符是方法" id="ruby语言运算符是方法">Ruby语言运算符是方法</a></h3>
+<pre><code class="language-ruby">'string1'.eql?('string2')
+'string1'.==('string2')
+'string1' == 'string2'
+</code></pre>
+<h3><a class="header" href="#点与点的距离" id="点与点的距离">点与点的距离</a></h3>
+<h4><a class="header" href="#公式" id="公式">公式</a></h4>
+<img src="./assets/ch3-distance-formula.svg"/>
+<h4><a class="header" href="#distance" id="distance">distance</a></h4>
+<pre><code class="language-ruby">ORIGIN.distance(Geom::Point3d.new(2.m, 1.m, 0))
+</code></pre>
+<h3><a class="header" href="#api-1" id="api-1">API</a></h3>
+<table><thead><tr><th>关键字</th><th>描述</th><th>文档链接</th></tr></thead><tbody>
+<tr><td>Point3d</td><td>点类型</td><td><a href="http://ruby.sketchup.com/Geom/Point3d.html" target="_blank">doc</a></td></tr>
+<tr><td>ORIGIN</td><td>原点常量</td><td><a href="http://ruby.sketchup.com/top-level-namespace.html#constant_summary" target="_blank">doc</a></td></tr>
+<tr><td>point3d.x</td><td>获取x分量</td><td><a href="http://ruby.sketchup.com/Geom/Point3d.html#x-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>point3d.y</td><td>获取y分量</td><td><a href="http://ruby.sketchup.com/Geom/Point3d.html#y-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>point3d.z</td><td>获取z分量</td><td><a href="http://ruby.sketchup.com/Geom/Point3d.html#z-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>array.x</td><td>获取数组第一个元素</td><td><a href="http://ruby.sketchup.com/Array.html#x-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>array.y</td><td>获取数组第二个元素</td><td><a href="http://ruby.sketchup.com/Array.html#y-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>array.z</td><td>获取数组第三个元素</td><td><a href="http://ruby.sketchup.com/Array.html#z-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>point3d.==</td><td>判断位置是否相同</td><td><a href="http://ruby.sketchup.com/Geom/Point3d.html#==-instance_method" target="_blank">doc</a></td></tr>
+<tr><td>distance</td><td>两点之间距离</td><td><a href="http://ruby.sketchup.com/Geom/Point3d.html#distance-instance_method" target="_blank">doc</a></td></tr>
+</tbody></table>
+<h2><a class="header" href="#练习题" id="练习题">练习题</a></h2>
+<ol>
+<li><strong>使用 is_a? 判断以下命题是否正确：</strong></li>
+</ol>
+<ul>
+<li>0.2 是 Float</li>
+<li>-10 是 Integer</li>
+<li>Float::INFINITY 是 Numeric</li>
+<li>'text' 是 Numeric </li>
+<li>nil 是 Object</li>
+</ul>
+<ol start="2">
+<li>
+<p><strong>小明在美国开车行驶速度为 80km/h，路边交通表示显示限速为 50(miles/h) 请问小明是否超速。</strong></p>
+</li>
+<li>
+<p><strong>多选：下列坐标系哪些是符合右手定则的笛卡尔坐标系(右手坐标系)？</strong></p>
+</li>
+</ol>
+<figure class="image">
+    <img src="./assets/ex3-coord-1.png" width="200" />
+    <figcaption>A</figcaption>
+  </figure>
+  <figure class="image">
+    <img src="./assets/ex3-coord-2.png" width="200" />
+    <figcaption>B</figcaption>
+  </figure>
+  <figure class="image">
+    <img src="./assets/ex3-coord-3.png" width="200" />
+    <figcaption>C</figcaption>
+  </figure>
+  <figure class="image">
+    <img src="./assets/ex3-coord-4.png" width="200" />
+    <figcaption>D</figcaption>
+  </figure>
+<h2><a class="header" href="#版权信息" id="版权信息">版权信息</a></h2>
+<p>Author: elonzyy</p>
+<p>License: <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+<p>The mdbook files, and associated images and figures in directories book-src/ are licensed under Creative Commons Attribution-ShareAlike 4.0 International License (cc by-sa).</p>
+<h3><a class="header" href="#图片引用列表" id="图片引用列表">图片引用列表</a></h3>
+<ul>
+<li>https://commons.wikimedia.org/wiki/File:Right_hand_rule_cross_product.svg</li>
+</ul>
 
                     </main>
 

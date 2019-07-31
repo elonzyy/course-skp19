@@ -6,7 +6,12 @@
 # See LICENSE file in the project root for full license information.     #
 ##########################################################################
 
-Sketchup.require('op_course_helpers/paths')
-Sketchup.require('op_course_helpers/ui/dialog')
+module CourseHelpers
+  class ElmDialog < ::UI::HtmlDialog
+    def initialize(*a)
+      super
 
-Sketchup.require('op_course_helpers/visualization/pt_and_vec')
+      set_file(CourseHelpers.paths('ui', 'index.html'))
+    end
+  end
+end

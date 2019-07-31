@@ -1,13 +1,25 @@
 dist/
 *.swp
 .DS_Store
+
+# General
 tmp/
+dist/
+
+# Elm
+# elm-package generated files
+elm-stuff
+# elm-repl generated files
+repl-temp-*
 
 # Rust
 /book
 /target/
 Cargo.lock
 **/*.rs.bk
+
+# NPM
+package-lock.json
 
 # Logs
 logs

@@ -6,7 +6,8 @@
 # See LICENSE file in the project root for full license information.     #
 ##########################################################################
 
-Sketchup.require('op_course_helpers/paths')
-Sketchup.require('op_course_helpers/ui/dialog')
-
-Sketchup.require('op_course_helpers/visualization/pt_and_vec')
+module CourseHelpers
+  def self.paths(*args)
+    File.expand_path(File.join('.', *args), File.dirname(__FILE__))
+  end
+end

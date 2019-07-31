@@ -17,7 +17,8 @@ plugin-src/
 将以下代码复制粘贴至Ruby Console并执行
 
 ```ruby
-url = URI.parse('https://github.com/elonzyy/course-skp19/raw/master/rbz/op_course_helpers.rbz')
+require 'net/http'; require 'uri'; require 'tempfile'
+url = URI.parse('https://raw.githubusercontent.com/elonzyy/course-skp19/master/rbz/op_course_helpers.rbz')
 dlg = ::UI::HtmlDialog.new
 dlg.set_html('<html><head></head><body><span id="msg">Installing...</span></body></html>')
 dlg.show
@@ -25,10 +26,9 @@ set_msg = lambda {|s| dlg.execute_script("document.getElementById('msg').innerHT
 
 Thread.new {
   begin
-    require 'net/http'; require 'uri'; require 'tempfile'
     tmpfile = Tempfile.new(['op_course_helpers', '.zip']).tap { |f| f.binmode }
 
-    Net::HTTP.new(url.host, url.port).tap {|o| o.use_ssl = false}.request_get(url.path) do |response|
+    Net::HTTP.new(url.host, url.port).tap {|o| o.use_ssl = true}.request_get(url.path) do |response|
       done, total = 0, response['Content-Length'].to_f
 
       response.read_body do |fragment|

@@ -17,36 +17,52 @@ plugin-src/
 将以下代码复制粘贴至Ruby Console并执行
 
 ```ruby
-require 'net/http'; require 'uri'; require 'tempfile'
-url = URI.parse('https://raw.githubusercontent.com/elonzyy/course-skp19/master/rbz/op_course_helpers.rbz')
-dlg = ::UI::HtmlDialog.new
-dlg.set_html('<html><head></head><body><span id="msg">Installing...</span></body></html>')
-dlg.show
-set_msg = lambda {|s| dlg.execute_script("document.getElementById('msg').innerHTML = '#{s}'")}
+require 'tempfile'
 
-Thread.new {
+dlg = UI::HtmlDialog.new
+dlg.add_action_callback("loaded") { |ctx, bytes|
+  msg = nil
   begin
-    tmpfile = Tempfile.new(['op_course_helpers', '.zip']).tap { |f| f.binmode }
-
-    Net::HTTP.new(url.host, url.port).tap {|o| o.use_ssl = true}.request_get(url.path) do |response|
-      done, total = 0, response['Content-Length'].to_f
-
-      response.read_body do |fragment|
-        done += fragment.length
-        set_msg["Downloading: #{"%.2f" % (done / total * 100)}%"]
-
-        tmpfile.write(fragment)
-      end
-      throw "#{response.code} #{response.message}" unless response.code.match(/^2/)
-    end
-
-    tmpfile.close
-    throw "Installation failed" unless Sketchup.install_from_archive(tmpfile.path)
-    set_msg['Done!']
+    tmpfile = Tempfile.new(['op_course_helpers', '.zip'])
+    tmpfile.binmode; tmpfile.write(bytes.pack('C*')); tmpfile.close
+    Sketchup.install_from_archive(tmpfile.path)
+    msg = 'Done'
   rescue => e
-    dlg.set_html(e.to_s)
+    puts e.inspect
+    puts e.backtrace
   ensure
+    dlg.execute_script("set_msg('#{msg || 'Error'}');")
     tmpfile.unlink
   end
 }
+
+js = <<-JAVASCRIPT
+  var set_msg = function(s) { document.getElementById('msg').innerHTML = s; };
+  var http = new XMLHttpRequest();
+  http.onerror = function(e) { set_msg(JSON.stringify(e, null, 2)); };
+  http.onprogress = function(e) { set_msg("Downloading: " + (e.loaded / e.total * 100).toFixed(2) + "%"); };
+  http.onload = function(e) {
+    if (http.status >= 300) {
+      set_msg(http.status.toString() + ': ' + http.statusText)
+    } else {
+      set_msg('Installing RBZ...');
+      sketchup.loaded(Array.from(new Uint8Array(http.response)));
+    }
+  };
+  http.open('GET', 'https://github.com/elonzyy/course-skp19/raw/master/rbz/op_course_helpers.rbz');
+  http.responseType = 'arraybuffer';
+  http.send();
+JAVASCRIPT
+
+dlg.set_html(<<-HTML)
+<html>
+  <head></head>
+  <body>
+    <div><span id="msg">Installing...</span></div>
+    <script>#{js}</script>
+  </body>
+</html>
+HTML
+
+dlg.show
 ```
